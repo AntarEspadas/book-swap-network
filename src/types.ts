@@ -20,6 +20,7 @@ export interface Book {
   ownerId: string;
   ownerName: string;
   isAvailable: boolean;
+  isbn?: string;
 }
 
 export interface TradeOffer {
