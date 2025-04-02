@@ -32,11 +32,28 @@ export async function fetchBookByISBN(isbn: string): Promise<GoogleBookData | nu
     
     const bookData = data.items[0].volumeInfo;
     
+    // Get the highest resolution image available
+    let coverUrl = '';
+    if (bookData.imageLinks) {
+      // Try to get the highest resolution in this priority order
+      coverUrl = bookData.imageLinks.extraLarge || 
+                 bookData.imageLinks.large || 
+                 bookData.imageLinks.medium || 
+                 bookData.imageLinks.small || 
+                 bookData.imageLinks.thumbnail || '';
+      
+      // Replace http with https and remove zoom parameters for better quality
+      if (coverUrl) {
+        coverUrl = coverUrl.replace('http://', 'https://');
+        coverUrl = coverUrl.replace(/&zoom=\d+/, '');
+      }
+    }
+    
     // Extract the relevant information
     const bookDetails: GoogleBookData = {
       title: bookData.title || '',
       author: bookData.authors ? bookData.authors.join(', ') : 'Unknown Author',
-      coverUrl: bookData.imageLinks?.thumbnail || '',
+      coverUrl: coverUrl,
       description: bookData.description || '',
       genre: bookData.categories ? bookData.categories[0] : undefined,
       year: bookData.publishedDate ? new Date(bookData.publishedDate).getFullYear() : undefined,
