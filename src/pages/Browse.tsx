@@ -62,9 +62,9 @@ const Browse = () => {
                 <SelectValue placeholder="Genre" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Genres</SelectItem>
+                <SelectItem value="all">All Genres</SelectItem>
                 {genres.map((genre) => (
-                  <SelectItem key={genre} value={genre!}>
+                  <SelectItem key={genre} value={genre || ""}>
                     {genre}
                   </SelectItem>
                 ))}
@@ -76,7 +76,7 @@ const Browse = () => {
                 <SelectValue placeholder="Condition" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Any Condition</SelectItem>
+                <SelectItem value="all">Any Condition</SelectItem>
                 <SelectItem value="Like New">Like New</SelectItem>
                 <SelectItem value="Very Good">Very Good</SelectItem>
                 <SelectItem value="Good">Good</SelectItem>
