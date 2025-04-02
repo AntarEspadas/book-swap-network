@@ -9,8 +9,8 @@ import { Search, BookOpen } from "lucide-react";
 const Browse = () => {
   const { availableBooks, isLoading } = useBooks();
   const [searchTerm, setSearchTerm] = useState("");
-  const [filterGenre, setFilterGenre] = useState("");
-  const [filterCondition, setFilterCondition] = useState("");
+  const [filterGenre, setFilterGenre] = useState("all");
+  const [filterCondition, setFilterCondition] = useState("all");
 
   // Get unique genres from books
   const genres = Array.from(
@@ -25,10 +25,10 @@ const Browse = () => {
       book.author.toLowerCase().includes(searchTerm.toLowerCase());
     
     const matchesGenre =
-      filterGenre === "" || book.genre === filterGenre;
+      filterGenre === "all" || book.genre === filterGenre;
     
     const matchesCondition =
-      filterCondition === "" || book.condition === filterCondition;
+      filterCondition === "all" || book.condition === filterCondition;
     
     return matchesSearch && matchesGenre && matchesCondition;
   });
